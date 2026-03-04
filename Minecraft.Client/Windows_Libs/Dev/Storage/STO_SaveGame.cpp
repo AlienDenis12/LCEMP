@@ -437,6 +437,7 @@ PVOID CSaveGame::AllocateSaveData(unsigned int uiBytes)
     return m_pSaveData;
 }
 
+// https://github.com/LCEMP/LCEMP
 void CSaveGame::SetSaveImages(PBYTE pbThumbnail, DWORD dwThumbnailBytes, PBYTE pbImage, DWORD dwImageBytes, PBYTE pbTextData, DWORD dwTextDataBytes)
 {
     if (m_pbThumbnail)
@@ -496,6 +497,7 @@ void CSaveGame::SetSaveImages(PBYTE pbThumbnail, DWORD dwThumbnailBytes, PBYTE p
     }
 }
 
+// https://github.com/LCEMP/LCEMP
 C4JStorage::ESaveGameState CSaveGame::SaveSaveData(int (*Func)(LPVOID, const bool), LPVOID lpParam)
 {
     if (!m_pSaveData || m_uiSaveSize == 0)
