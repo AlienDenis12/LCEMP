@@ -893,12 +893,16 @@ void MinecraftServer::stopServer()
 	// 4J-PB - If the primary player has signed out, then don't attempt to save anything
 	
 	// also need to check for a profile switch here - primary player signs out, and another player signs in before dismissing the dash
-#ifdef _DURANGO
+#ifdef WITH_SERVER_CODE
+	{
+		{
+#elif defined(_DURANGO)
 	// On Durango check if the primary user is signed in OR mid-sign-out
 	if(ProfileManager.GetUser(0, true) != nullptr)
 #else
 	if((m_bPrimaryPlayerSignedOut==false) && ProfileManager.IsSignedIn(ProfileManager.GetPrimaryPad()))
 #endif
+#ifndef WITH_SERVER_CODE
 	{
 #if defined(_XBOX_ONE) || defined(__ORBIS__)
 		// Always save on exit! Except if saves are disabled.
@@ -907,6 +911,7 @@ void MinecraftServer::stopServer()
 		// if trial version or saving is disabled, then don't save anything
 		if(m_saveOnExit && ProfileManager.IsFullVersion() && (!StorageManager.GetSaveDisabled()))
 		{	
+#endif
 			if (players != NULL)
 			{
 				players->saveAll(Minecraft::GetInstance()->progressRenderer, true);
